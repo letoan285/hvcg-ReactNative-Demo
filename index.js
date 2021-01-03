@@ -7,5 +7,6 @@ import App from './App';
 import RootContainer from './RootContainer';
 import AppContainer from './AppContainer';
 import {name as appName} from './app.json';
+import 'react-native-gesture-handler';
 
 AppRegistry.registerComponent(appName, () => App);
