@@ -1,10 +1,8 @@
 import { combineReducers } from "redux"
+import productsReducer from './products'
 
-function generalReducer(state: any, action: any){
-    return state;
-}
 
-export const appReducer = combineReducers(generalReducer);
+export const appReducer = combineReducers(productsReducer);
 
 
 export const rootReducer = (state: any, action: any) => {
