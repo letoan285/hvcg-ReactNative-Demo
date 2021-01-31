@@ -6,6 +6,7 @@ export default class GetProductsUseCase implements IUseCase {
     private productRepository: ProductRepository;
 
     constructor() {
+        
         this.productRepository = new ProductRepository();
     }
 
@@ -14,7 +15,8 @@ export default class GetProductsUseCase implements IUseCase {
             this.productRepository
                 .getProducts()
                 .then((response: any) => {
-                    const data = response && response.data;
+                    const {data} =response.data;
+                    
                     if (data) {
                         resolve(data);
                     } else {

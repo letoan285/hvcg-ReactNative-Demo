@@ -1,37 +1,40 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Button, Text, View, FlatList, Image, Platform, Dimensions, Alert  } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import Loading from "../../../components/loading";
 import { getProducts } from '../../../redux/actions/products';
 
 const width = Dimensions.get('window').width;
 
-const HomeScreen = ({ navigation, propsData }: any) => {
+const HomeScreen = ({ navigation, propsData, getProducts: handleGetProducts }: any) => {
     const goToDetail = () => {
         navigation.navigate('Detail');
     }
 
-    const productItems = [
-        {id: 1, title: 'VELVET CHAIR 1', icon: '', src: 'https://cdn.ambientedirect.com/chameleon/mediapool/thumbs/0/47/Gubi_Beetle-Chair-mit-Stoff-und-Gestell-schwarz_1515x1515-ID572442-a40195c7e75264b6a6309e1e0ffa09f7.jpg'},
-        {id: 2, title: 'VELVET CHAIR 2', icon: '', src: 'https://cdn.ambientedirect.com/chameleon/mediapool/thumbs/0/47/Gubi_Beetle-Chair-mit-Stoff-und-Gestell-schwarz_1515x1515-ID572442-a40195c7e75264b6a6309e1e0ffa09f7.jpg'},
-        {id: 3, title: 'VELVET CHAIR 3', icon: '', src: 'https://cdn.ambientedirect.com/chameleon/mediapool/thumbs/0/47/Gubi_Beetle-Chair-mit-Stoff-und-Gestell-schwarz_1515x1515-ID572442-a40195c7e75264b6a6309e1e0ffa09f7.jpg'},
-        {id: 4, title: 'VELVET CHAIR 4', icon: '', src: 'https://cdn.ambientedirect.com/chameleon/mediapool/thumbs/0/47/Gubi_Beetle-Chair-mit-Stoff-und-Gestell-schwarz_1515x1515-ID572442-a40195c7e75264b6a6309e1e0ffa09f7.jpg'},
-        {id: 5, title: 'VELVET CHAIR 4', icon: '', src: 'https://cdn.ambientedirect.com/chameleon/mediapool/thumbs/0/47/Gubi_Beetle-Chair-mit-Stoff-und-Gestell-schwarz_1515x1515-ID572442-a40195c7e75264b6a6309e1e0ffa09f7.jpg'},
-    ];
     useEffect(() => {
-        console.log('propData', propsData);
+        handleGetProducts();        
     }, []);
 
+    if(!propsData.data){
+        return (
+            <Loading />
+        );
+    }
+
+  
+
     function renderProducts({item}: any){
+        
         return (
             <View >
                 <View style={{backgroundColor: 'white', marginRight: 25}}>
                     <View>
-                        <Text>{item.title}</Text>
+                        <Text>{item.name}</Text>
                     </View>
                     <View>
-                        <Image source={{uri: `${item.src}`}} style={{width: width/1.5, height: 250}}/>
+                        <Image source={{uri: `${item.thumbnail_image}`}} style={{width: width/1.5, height: 250}}/>
                     </View>
                     <TouchableOpacity onPress={() => Alert.alert('Add To Cart')} 
                     style={{backgroundColor: 'coral', paddingVertical: 5}}>
@@ -49,12 +52,13 @@ const HomeScreen = ({ navigation, propsData }: any) => {
                     <Text>Explore</Text>
                 </View>
                 <View>
+                    <Text>Render run</Text>
                     {/* {
                         renderProducts
                     } */}
                     <FlatList
                         renderItem={renderProducts}
-                        data={productItems}
+                        data={propsData.data}
                         horizontal
                         showsHorizontalScrollIndicator={false}
                     />
@@ -67,7 +71,7 @@ const HomeScreen = ({ navigation, propsData }: any) => {
 }
 
 const mapStateToProps = (state: any) => ({
-    propsData: state
+    propsData: state.productsReducer.getProductsReducer
 })
 const mapDispatchToProps = (dispatch: any) => bindActionCreators({
     getProducts

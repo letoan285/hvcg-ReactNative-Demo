@@ -10,9 +10,9 @@ export default function (
   action: IAction<any>
 ): IState<any> {
   switch (action.type) {
-    case ProductActionTypes.GET_PRODUCTS: {
-      return ReducerHelper.baseProcessRequest(state, action);
-    }
+    // case ProductActionTypes.GET_PRODUCTS: {
+    //   return ReducerHelper.baseProcessRequest(state, action);
+    // }
     case ProductActionTypes.GET_PRODUCTS_SUCCESS: {
       return ReducerHelper.baseProcessSuccess(state, action);
     }

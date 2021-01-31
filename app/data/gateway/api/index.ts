@@ -69,10 +69,8 @@ class ApiGateway {
     const { Path } = resource;
     const endpoint = this.getEndpoint(resource.Type);
     const url = `${endpoint}${Path}`;
-    return this._instanceAxios
-      .get(url)
-      .then(this._handleSuccess)
-      .catch(this._handleError);
+
+    return this._instanceAxios.get(url).then(this._handleSuccess).catch(this._handleError);
   };
 
   doPostRequest = (

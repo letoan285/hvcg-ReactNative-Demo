@@ -8,11 +8,10 @@ import { IProduct } from '../../../../shared/interfaces/product';
 const getAll = (): Promise<ResponseModel<string>> => {
   const apiGateway = ApiGateway.createAPIConnection(getConfig());
   const getProductResource = NestjsResource.Product.GetAll();
-
   return apiGateway.doGetRequest(getProductResource)
     .then((response: ResponseModel<string>) => {
       const { data } = response;
-      return data;
+      return response;
     });
 };
 

@@ -14,7 +14,7 @@ export enum ProductActionTypes {
     CLEAR_DATA = '[Products] CLEAR_DATA',
     REMOVE_PRODUCT = '[Products] REMOVE_PRODUCT',
 
-    DELETE_PRODUCT = '[Products] GET_PRODUCTS',
+    DELETE_PRODUCT = '[Products] DELETE_PRODUCT',
     DELETE_PRODUCT_SUCCESS = '[Products] DELETE_PRODUCT_SUCCESS',
     DELETE_PRODUCT_FAIL = '[Products] DELETE_PRODUCT_FAIL',
 }
