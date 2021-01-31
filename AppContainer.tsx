@@ -20,6 +20,9 @@ import WishlistStackScreen from './app/presentation/navigation/app/wishlist';
 import DrawerContent from './app/presentation/navigation/drawer/DrawerContent';
 import Loading from './app/presentation/components/loading';
 // import IconFont from 'react-native-vector-icons/FontAwesome';
+import { initApplication } from './app/presentation/redux/actions/general/appInitiation'
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
 declare const global: { HermesInternal: null | {} };
 
@@ -101,9 +104,10 @@ const MainTabScreen = () => {
 }
 
 
-const AppContainer = () => {
+const AppContainer = ({initApplication: handleInitApplication}: any) => {
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
+    handleInitApplication();
     setTimeout(() => {
       setIsLoading(false);
     }, 2000)
@@ -127,4 +131,12 @@ const AppContainer = () => {
     </NavigationContainer>
   );
 }
-export default AppContainer;
+
+const mapStateToProps = (state: any) => ({
+  propsData: state
+})
+const mapDispatchToProps = (dispatch: any) => bindActionCreators({
+  initApplication
+}, dispatch)
+
+export default connect(mapStateToProps, mapDispatchToProps)(AppContainer);
