@@ -2,7 +2,7 @@ import { combineReducers } from "redux"
 import productsReducer from './products'
 
 
-export const appReducer = combineReducers(productsReducer);
+export const appReducer = combineReducers({productsReducer});
 
 
 export const rootReducer = (state: any, action: any) => {
